@@ -1,4 +1,4 @@
-# Display query which are in lock, how long they have been running
+## Display query which are in lock, how long they have been running
 
 ```sql
 SELECT a.datname,
@@ -17,7 +17,7 @@ SELECT a.datname,
     ORDER BY a.query_start;
 ```
 
-# Terminate a runing query
+## Terminate a runing query
 
 ```sql
 SELECT pid, age(now(), query_start) AS "age", pg_cancel_backend(pid)
