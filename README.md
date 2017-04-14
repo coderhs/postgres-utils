@@ -25,5 +25,13 @@ FROM pg_stat_activity
 WHERE query != '<IDLE>' AND query NOT ILIKE '%pg_stat_activity%' AND query ILIKE '%DELETE%';
 ```
 
-pg_cancel_backend - accepts only one pid at a time. It returns true or false (if its executed or not) and it you should use
-cancel for an active query
+*pg_cancel_backend* - accepts only one pid at a time. It returns true or false (if its executed or not) and it you should use
+cancel for an active query.
+
+## Find rows whose attribute with timestap has time between two time of the day.
+
+```sql
+SELECT *                                                                 )
+FROM table_name
+WHERE CAST(start_time as time) NOT BETWEEN TIME '8:30:00' AND TIME '12:30:00';
+```
