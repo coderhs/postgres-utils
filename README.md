@@ -31,7 +31,7 @@ cancel for an active query.
 ## Find rows whose attribute with timestap has time between two time of the day.
 
 ```sql
-SELECT *                                                                 )
+SELECT *
 FROM table_name
 WHERE CAST(start_time as time) NOT BETWEEN TIME '8:30:00' AND TIME '12:30:00';
 ```
