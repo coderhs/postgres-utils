@@ -7,10 +7,10 @@ SELECT a.datname,
          l.mode,
          l.GRANTED,
          a.usename,
-         a.query, 
+         a.query,
          a.query_start,
-         age(now(), a.query_start) AS "age", 
-         a.pid 
+         age(now(), a.query_start) AS "age",
+         a.pid
     FROM  pg_stat_activity a
      JOIN pg_locks         l ON l.pid = a.pid
      JOIN pg_class         c ON c.oid = l.relation
@@ -50,3 +50,20 @@ WHERE CAST(start_time as time) NOT BETWEEN TIME '8:30:00' AND TIME '12:30:00';
   ORDER BY pg_total_relation_size(pg_class.oid::regclass) DESC;
 ```
 
+## Create a view of all the active locks
+
+```sql
+  CREATE OR REPLACE VIEW public.active_locks AS
+   SELECT t.schemaname,
+      t.relname,
+      l.locktype,
+      l.page,
+      l.virtualtransaction,
+      l.pid,
+      l.mode,
+      l.granted
+     FROM pg_locks l
+     JOIN pg_stat_all_tables t ON l.relation = t.relid
+    WHERE t.schemaname <> 'pg_toast'::name AND t.schemaname <> 'pg_catalog'::name
+    ORDER BY t.schemaname, t.relname;
+```
