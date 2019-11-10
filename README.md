@@ -67,3 +67,16 @@ WHERE CAST(start_time as time) NOT BETWEEN TIME '8:30:00' AND TIME '12:30:00';
     WHERE t.schemaname <> 'pg_toast'::name AND t.schemaname <> 'pg_catalog'::name
     ORDER BY t.schemaname, t.relname;
 ```
+
+
+## Get total number of DB Connections
+
+```sql
+select count(*) from pg_stat_activity;
+```
+
+## Get total DB size
+
+```sql
+SELECT pg_size_pretty(pg_database_size('DB NAME'));
+```
